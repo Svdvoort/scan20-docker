@@ -2,7 +2,7 @@ FROM pytorch/pytorch:1.11.0-cuda11.3-cudnn8-runtime
 
 RUN pip install \
     batchgenerators==0.24 \
-    certifi==2022.6.15.1 \ 
+    certifi==2022.6.15.1 \
     charset-normalizer==2.1.1 \
     future==0.18.2 \
     idna==3.3 \
@@ -27,10 +27,18 @@ RUN pip install \
     six==1.16.0 \
     threadpoolctl==3.1.0 \
     tifffile==2022.8.12 \
-    traceback2==1.4.0 \ 
+    traceback2==1.4.0 \
     typing-extensions==4.3.0 \
     unittest2==1.1.0 \
     urllib3==1.26.12
+
+RUN apt-get update \
+    && DEBIAN_FRONTEND="noninteractive" apt-get install --no-install-recommends -y \
+    libglib2.0-0 \
+    libsm6 \
+    libxext6 \
+    libxrender-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 
 COPY app/ /app/
